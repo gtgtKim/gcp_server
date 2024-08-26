@@ -1,23 +1,23 @@
 const express = require("express");
 const path = require("path");
-const helmet = require("helmet");
+//const helmet = require("helmet");
 const morgan = require("morgan");
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Custom Helmet configuration without CSP
-app.use(
-  helmet({
-    contentSecurityPolicy: false, // Disable CSP
-    // You can still configure other Helmet settings here if needed
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: false, // Disable CSP
 
-app.use((req, res, next) => {
-  console.log(res.getHeaders()); // 헤더 내용 확인
-  res.removeHeader("Content-Security-Policy"); // 필요시 CSP 헤더 제거
-  next();
-});
+//   })
+// );
+
+// app.use((req, res, next) => {
+//   console.log(res.getHeaders()); // 헤더 내용 확인
+//   res.removeHeader("Content-Security-Policy"); // 필요시 CSP 헤더 제거
+//   next();
+// });
 
 // Logging middleware
 app.use(morgan("combined"));
