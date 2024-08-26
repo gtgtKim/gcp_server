@@ -13,6 +13,12 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log(res.getHeaders()); // 헤더 내용 확인
+  res.removeHeader("Content-Security-Policy"); // 필요시 CSP 헤더 제거
+  next();
+});
+
 // Logging middleware
 app.use(morgan("combined"));
 
