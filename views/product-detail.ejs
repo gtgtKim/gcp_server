@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Detail</title>
+    <script src="/scripts/common.js"></script>
+    <script>
+      var btn_click = function () {
+        dataLayer.push({ event: "btn_click" });
+      };
+    </script>
+    <script>
+      var CODE = "<%= productId %>";
+    </script>
+  </head>
+  <body>
+    <h1>This is the Product Detail Page for Product ID: <%= productId %></h1>
+    <a href="/main" style="display: block">Go to Main</a>
+    <button onclick="btn_click()">상품<%= productId %>번</button>
+  </body>
+</html>
