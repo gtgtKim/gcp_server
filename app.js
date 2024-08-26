@@ -5,8 +5,13 @@ const morgan = require("morgan");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Security middleware
-app.use(helmet());
+// Custom Helmet configuration without CSP
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Disable CSP
+    // You can still configure other Helmet settings here if needed
+  })
+);
 
 // Logging middleware
 app.use(morgan("combined"));
