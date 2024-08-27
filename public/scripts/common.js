@@ -1,3 +1,14 @@
+//쿠키동의
+(function (url, callback) {
+  var script = document.createElement("script");
+  script.src = url;
+  script.onload = callback;
+  document.head.appendChild(script);
+})("//cdn.cookie-script.com/s/a85c0b372031d72359d2525b66a62169.js", function () {
+  console.log("Cookie Script loaded successfully!");
+});
+
+//GTM
 (function (w, d, s, l, i) {
   w[l] = w[l] || [];
   w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
