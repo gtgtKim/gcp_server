@@ -1,0 +1,14 @@
+# node_modules 디렉토리 제외
+node_modules/
+
+# 로그 파일 제외
+*.log
+
+# npm 또는 yarn의 패키지 잠금 파일 (선택적으로 제외 가능)
+package-lock.json
+
+
+# IDE/편집기 관련 파일 제외
+.vscode/
+.idea/
+*.swp
