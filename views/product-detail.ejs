@@ -1,64 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Detail <%= productId %></title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <script src="/scripts/common.js"></script>
-    <script>
-      var btn_click = function () {
-        dataLayer.push({ event: "btn_click" });
-      };
+<% layout('layout') %>
+<% title = `product-detail ${productId}`; %>
+<% headScripts = `
+  <script>
+    var btn_click = function() {
+      dataLayer.push({
+        event: "btn_click"
+      });
+    };
 
-      function increaseQuantity() {
-        var qtyInput = document.getElementById("quantity");
-        qtyInput.value = parseInt(qtyInput.value) + 1;
+    function increaseQuantity() {
+      var qtyInput = document.getElementById("quantity");
+      qtyInput.value = parseInt(qtyInput.value) + 1;
+    }
+
+    function decreaseQuantity() {
+      var qtyInput = document.getElementById("quantity");
+      if (parseInt(qtyInput.value) > 1) {
+        qtyInput.value = parseInt(qtyInput.value) - 1;
       }
+    }
+  </script>
+` %>
 
-      function decreaseQuantity() {
-        var qtyInput = document.getElementById("quantity");
-        if (parseInt(qtyInput.value) > 1) {
-          qtyInput.value = parseInt(qtyInput.value) - 1;
-        }
-      }
-    </script>
-    <script>
-      var CODE = "<%= productId %>";
-    </script>
-  </head>
-  <body>
-    <div class="common-container">
-      <h1>This is the Product Detail Page for Product ID: <%= productId %></h1>
 
-      <div class="container">
-        <!-- 상품 ID에 따른 CDN 이미지 표시 -->
-        <img src="https://cdn.gyutae.xyz/cdn-image/image<%= productId %>.png" alt="Product Image" width="350" class="image" />
 
-        <div class="product-options">
-          <!-- 상품 옵션 선택 -->
-          <select id="productOption">
-            <option value="option1">옵션 1</option>
-            <option value="option2">옵션 2</option>
-            <option value="option3">옵션 3</option>
-          </select>
+<h1>This is the Product Detail Page for Product ID: <%= productId %></h1>
 
-          <!-- 수량 조절 -->
-          <div class="quantity-controls">
-            <button onclick="decreaseQuantity()">-</button>
-            <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center" />
-            <button onclick="increaseQuantity()">+</button>
-          </div>
+<div class="container">
+  <!-- 상품 ID에 따른 CDN 이미지 표시 -->
+  <img src="https://cdn.gyutae.xyz/cdn-image/image<%= productId %>.png" alt="Product Image" width="350" class="image" />
 
-          <!-- 장바구니 추가 및 바로 구매 버튼 -->
-          <button onclick="btn_click()">장바구니 추가</button>
-          <button onclick="btn_click()">바로 구매</button>
-        </div>
-      </div>
+  <div class="product-options">
+    <!-- 상품 옵션 선택 -->
+    <select id="productOption">
+      <option value="option1">옵션 1</option>
+      <option value="option2">옵션 2</option>
+      <option value="option3">옵션 3</option>
+    </select>
 
-      <p>
-        <a href="/main" style="display: inline">Go to Main</a>
-      </p>
+    <!-- 수량 조절 -->
+    <div class="quantity-controls">
+      <button onclick="decreaseQuantity()">-</button>
+      <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center" />
+      <button onclick="increaseQuantity()">+</button>
     </div>
-  </body>
-</html>
+
+    <!-- 장바구니 추가 및 바로 구매 버튼 -->
+    <button onclick="btn_click()">장바구니 추가</button>
+    <button onclick="btn_click()">바로 구매</button>
+  </div>
+</div>
+
+<p>
+  <a href="/main" style="display: inline">Go to Main</a>
+</p>

@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product List</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <script src="/scripts/common.js"></script>
-  </head>
-  <body>
-    <div class="common-container">
-      <h1>Here is the Product List</h1>
-      <div class="product-list">
-        <% for (let i = 1; i <= 10; i++) { %>
-        <div class="product-item">
-          <a href="/product-detail/<%= i %>" style="display: inline-block">
-            <img src="https://cdn.gyutae.xyz/cdn-image/image<%= i %>.png" alt="Product Image" width="200" class="image" />
-            <div>상품이름 <%= i %></div>
-          </a>
-          <p></p>
-        </div>
+<% layout('layout') %>
+<% title = `product-list`; %>
+<h1>Here is the Product List</h1>
+<div class="product-list">
+  <% for (let i = 1; i <= 10; i++) { %>
+  <div class="product-item">
+    <a href="/product-detail/<%= i %>" style="display: inline-block">
+      <img src="https://cdn.gyutae.xyz/cdn-image/image<%= i %>.png" alt="Product Image" width="200" class="image" />
+      <div>상품이름 <%= i %></div>
+    </a>
+    <p></p>
+  </div>
 
-        <% } %>
-      </div>
-    </div>
-  </body>
-</html>
+  <% } %>
+</div>

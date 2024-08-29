@@ -1,0 +1,58 @@
+<% layout('layout') %>
+<% title = `login`; %>
+<% headScripts = `
+  <script>
+
+  </script>
+` %>
+
+
+<h1>login page </h1>
+<h2>총 회원수 <%= userCnt %>명</h2>
+<form id="loginForm">
+  <input type="text" name="username" placeholder="아이디" required>
+  <input type="password" name="password" placeholder="비밀번호" required>
+  <button type="submit">로그인</button>
+</form>
+<div class="links">
+  <a href="/find-id">ID 찾기</a>
+  <a href="/signup">회원가입</a>
+</div>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // 폼의 기본 제출 동작을 막음
+
+    // 폼 데이터 수집
+    const username = document.querySelector('input[name="username"]').value;
+    const password = document.querySelector('input[name="password"]').value;
+
+    // JSON 객체로 변환
+    const data = {
+      username: username,
+      password: password
+    };
+
+    // fetch API를 사용해 JSON 데이터를 전송
+    fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data) // 데이터를 JSON 문자열로 변환하여 전송
+      })
+      .then((response) => response.json()) // 응답을 JSON 형식으로 변환
+      .then((data) => {
+        if (data.success) {
+          // 로그인 성공 시 메인 페이지로 이동
+          window.location.href = "/main";
+        } else {
+          // 로그인 실패 시 에러 메시지 표시
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
+</script>

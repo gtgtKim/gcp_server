@@ -1,45 +1,49 @@
+const dotenv = require("dotenv");
+dotenv.config();
+const db = require("./db");
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
+const engine = require("ejs-locals");
+const session = require("express-session");
+
+const authRoutes = require("./auth");
+
 const app = express();
+app.use(express.json()); // JSON 형식의 요청 데이터를 파싱
+
 const port = process.env.PORT || 3000;
-const mysql = require("mysql2/promise");
 
-const db = mysql.createPool({
-  host: "34.64.60.116", // Cloud SQL 인스턴스의 호스트 주소
-  user: "gyutae", // 데이터베이스 사용자 이름
-  password: "1234", // 데이터베이스 비밀번호
-  database: "user_db", // 사용할 데이터베이스 이름
-});
-
-// 연결 테스트 (선택 사항)
-db.getConnection()
-  .then((connection) => {
-    console.log("Database connected successfully!");
-    connection.release();
+// 세션 설정
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // HTTPS에서만 secure 설정을 true로 변경
   })
-  .catch((err) => {
-    console.error("Database connection failed:", err);
-  });
-
-app.use((req, res, next) => {
-  console.log(res.getHeaders()); // 헤더 내용 확인
-  res.removeHeader("Content-Security-Policy"); // 필요시 CSP 헤더 제거
-  next();
-});
+);
 
 // Logging middleware
 app.use(morgan("combined"));
-
-// Set the view engine to ejs
+app.engine("ejs", engine);
 app.set("view engine", "ejs");
 
 // Static file middleware with caching
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware to disable caching for dynamic content
 app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
+  next();
+});
+
+// Middleware to check if user is logged in
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = req.session.isLoggedIn || false;
+  console.log(req.session);
+  console.log(res.locals);
   next();
 });
 
@@ -48,7 +52,10 @@ app.get("/", (req, res) => {
   res.redirect("/main");
 });
 
-// Routes
+// Use auth routes
+app.use("/", authRoutes);
+
+// Other routes
 app.get("/main", (req, res) => {
   res.render("main");
 });
@@ -57,9 +64,37 @@ app.get("/product-list", (req, res) => {
   res.render("product-list");
 });
 
+app.get("/mypage", (req, res) => {
+  if (req.session.isLoggedIn) {
+    res.render("mypage");
+  } else {
+    res.redirect("/login");
+  }
+});
+
+// 로그인 라우트
+app.get("/login", async (req, res) => {
+  if (!req.session.isLoggedIn) {
+    const [rows] = await db.query("SELECT count(distinct username) FROM users");
+    userCnt = rows[0]["count(distinct username)"];
+    res.render("login", { userCnt: `${userCnt}` });
+  } else {
+    res.redirect("/mypage");
+  }
+});
+
+// 회원가입 라우트
+app.get("/signup", (req, res) => {
+  if (!req.session.isLoggedIn) {
+    res.render("signup");
+  } else {
+    res.redirect("/mypage");
+  }
+});
+
 app.get("/product-detail/:id", (req, res) => {
   const productId = req.params.id;
-  res.render("product-detail", { productId: productId });
+  res.render("product-detail", { productId: `${productId}` });
 });
 
 app.get("/events/:id", (req, res) => {

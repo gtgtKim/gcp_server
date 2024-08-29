@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Detail <%= eventId %></title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <script src="/scripts/common.js"></script>
-  </head>
-  <body>
-    <div class="common-container">
-      <h1>This is the Event Detail Page for Event ID: <%= eventId %></h1>
-    </div>
-  </body>
-</html>
+<% layout('layout') %>
+<% title = `Event-Detail ${eventId}`; %>
+<% headScripts = `
+  <script>
+
+  </script>
+` %>
+
+
+<h1>This is the Event Detail Page for Event ID: <%= eventId %></h1>

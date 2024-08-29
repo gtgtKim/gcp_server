@@ -1,69 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <script src="/scripts/common.js"></script>
+<% layout('layout') %>
+<% title = 'Main Page'; %>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        let currentIndex = 1;
-        const bannerItems = document.querySelectorAll(".banner-item");
-        const bannerWrapper = document.querySelector(".banner-wrapper");
+<% headScripts = `
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 1;
+    const bannerItems = document.querySelectorAll(".banner-item");
+    const bannerWrapper = document.querySelector(".banner-wrapper");
 
-        function rollBanner() {
-          currentIndex++;
-          bannerWrapper.style.transition = "transform 0.5s ease-in-out";
-          bannerWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    function rollBanner() {
+      currentIndex++;
+      bannerWrapper.style.transition = "transform 0.5s ease-in-out";
+      bannerWrapper.style.transform = "translateX(-" + (currentIndex * 100) + "%)";
 
-          if (currentIndex === bannerItems.length - 1) {
-            setTimeout(() => {
-              bannerWrapper.style.transition = "none";
-              bannerWrapper.style.transform = `translateX(-100%)`;
-              currentIndex = 1;
-            }, 500);
-          }
-        }
+      if (currentIndex === bannerItems.length - 1) {
+        setTimeout(function() {
+          bannerWrapper.style.transition = "none";
+          bannerWrapper.style.transform = "translateX(-100%)";
+          currentIndex = 1;
+        }, 500);
+      }
+    }
 
-        setInterval(rollBanner, 1000);
-      });
-    </script>
-  </head>
-  <body>
-    <div class="common-container">
-      <h1>Welcome to the Main Page</h1>
+    setInterval(rollBanner, 1000);
+  });
+</script> 
+` %>
 
-      <% const bannerItems = []; for (let i = 1; i <= 5; i++) { bannerItems.push({ title: "banner " + i, link: "/events/" + i, image:
-      "https://cdn.gyutae.xyz/cdn-image/banner" + i + ".png", }); } %>
 
-      <div class="banner-container">
-        <div class="banner-wrapper">
-          <!-- 마지막 슬라이드 복제 -->
-          <a href="<%= bannerItems[bannerItems.length - 1].link %>" class="banner-item">
-            <img src="<%= bannerItems[bannerItems.length - 1].image %>" alt="Banner <%= bannerItems.length %>" />
-            <h2><%= bannerItems[bannerItems.length - 1].title %></h2>
-          </a>
+<h1>Welcome to the Main Page</h1>
 
-          <!-- 실제 배너 항목 -->
-          <% bannerItems.forEach(function(item, index) { %>
-          <a href="<%= item.link %>" class="banner-item">
-            <img src="<%= item.image %>" alt="Banner <%= index + 1 %>" />
-            <h2><%= item.title %></h2>
-          </a>
-          <% }) %>
+<% const bannerItems = []; for (let i = 1; i <= 5; i++) { bannerItems.push({ title: "banner " + i, link: "/events/" + i, image:
+"https://cdn.gyutae.xyz/cdn-image/banner" + i + ".png", }); } %>
 
-          <!-- 첫 번째 슬라이드 복제 -->
-          <a href="<%= bannerItems[0].link %>" class="banner-item">
-            <img src="<%= bannerItems[0].image %>" alt="Banner 1" />
-            <h2><%= bannerItems[0].title %></h2>
-          </a>
-        </div>
-      </div>
+<div class="banner-container">
+  <div class="banner-wrapper">
+    <!-- 마지막 슬라이드 복제 -->
+    <a href="<%= bannerItems[bannerItems.length - 1].link %>" class="banner-item">
+      <img src="<%= bannerItems[bannerItems.length - 1].image %>" alt="Banner <%= bannerItems.length %>" />
+      <h2><%= bannerItems[bannerItems.length - 1].title %></h2>
+    </a>
 
-      <a href="/product-list" style="display: block">Go to Product List</a>
-      <button onclick="btn_click()">dataLayer.push({'event':'btn_click'})</button>
-    </div>
-  </body>
-</html>
+    <!-- 실제 배너 항목 -->
+    <% bannerItems.forEach(function(item, index) { %>
+    <a href="<%= item.link %>" class="banner-item">
+      <img src="<%= item.image %>" alt="Banner <%= index + 1 %>" />
+      <h2><%= item.title %></h2>
+    </a>
+    <% }) %>
+
+    <!-- 첫 번째 슬라이드 복제 -->
+    <a href="<%= bannerItems[0].link %>" class="banner-item">
+      <img src="<%= bannerItems[0].image %>" alt="Banner 1" />
+      <h2><%= bannerItems[0].title %></h2>
+    </a>
+  </div>
+</div>
+<a href="/product-list" style="display: block">Go to Product List</a>
+<button onclick="btn_click()">dataLayer.push({'event':'btn_click'})</button>
+<p></p>
+<div>non-privacy mode</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rjEnFLsulp0?si=y5iQEX703sUDyb_Y&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p></p>
+<div>privacy mode</div>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/rjEnFLsulp0?si=y5iQEX703sUDyb_Y&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
