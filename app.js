@@ -1,17 +1,26 @@
 const express = require("express");
 const path = require("path");
-//const helmet = require("helmet");
 const morgan = require("morgan");
 const app = express();
 const port = process.env.PORT || 3000;
+const mysql = require("mysql2/promise");
 
-// Custom Helmet configuration without CSP
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: false, // Disable CSP
+const db = mysql.createPool({
+  host: "34.64.60.116", // Cloud SQL 인스턴스의 호스트 주소
+  user: "gyutae", // 데이터베이스 사용자 이름
+  password: "1234", // 데이터베이스 비밀번호
+  database: "user_db", // 사용할 데이터베이스 이름
+});
 
-//   })
-// );
+// 연결 테스트 (선택 사항)
+db.getConnection()
+  .then((connection) => {
+    console.log("Database connected successfully!");
+    connection.release();
+  })
+  .catch((err) => {
+    console.error("Database connection failed:", err);
+  });
 
 app.use((req, res, next) => {
   console.log(res.getHeaders()); // 헤더 내용 확인

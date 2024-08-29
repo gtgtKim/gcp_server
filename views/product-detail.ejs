@@ -28,35 +28,37 @@
     </script>
   </head>
   <body>
-    <h1>This is the Product Detail Page for Product ID: <%= productId %></h1>
+    <div class="common-container">
+      <h1>This is the Product Detail Page for Product ID: <%= productId %></h1>
 
-    <div class="container">
-      <!-- 상품 ID에 따른 CDN 이미지 표시 -->
-      <img src="https://cdn.gyutae.xyz/cdn-image/image<%= productId %>.png" alt="Product Image" width="350" class="image" />
+      <div class="container">
+        <!-- 상품 ID에 따른 CDN 이미지 표시 -->
+        <img src="https://cdn.gyutae.xyz/cdn-image/image<%= productId %>.png" alt="Product Image" width="350" class="image" />
 
-      <div class="product-options">
-        <!-- 상품 옵션 선택 -->
-        <select id="productOption">
-          <option value="option1">옵션 1</option>
-          <option value="option2">옵션 2</option>
-          <option value="option3">옵션 3</option>
-        </select>
+        <div class="product-options">
+          <!-- 상품 옵션 선택 -->
+          <select id="productOption">
+            <option value="option1">옵션 1</option>
+            <option value="option2">옵션 2</option>
+            <option value="option3">옵션 3</option>
+          </select>
 
-        <!-- 수량 조절 -->
-        <div class="quantity-controls">
-          <button onclick="decreaseQuantity()">-</button>
-          <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center" />
-          <button onclick="increaseQuantity()">+</button>
+          <!-- 수량 조절 -->
+          <div class="quantity-controls">
+            <button onclick="decreaseQuantity()">-</button>
+            <input type="number" id="quantity" value="1" min="1" style="width: 50px; text-align: center" />
+            <button onclick="increaseQuantity()">+</button>
+          </div>
+
+          <!-- 장바구니 추가 및 바로 구매 버튼 -->
+          <button onclick="btn_click()">장바구니 추가</button>
+          <button onclick="btn_click()">바로 구매</button>
         </div>
-
-        <!-- 장바구니 추가 및 바로 구매 버튼 -->
-        <button onclick="btn_click()">장바구니 추가</button>
-        <button onclick="btn_click()">바로 구매</button>
       </div>
-    </div>
 
-    <p>
-      <a href="/main" style="display: inline">Go to Main</a>
-    </p>
+      <p>
+        <a href="/main" style="display: inline">Go to Main</a>
+      </p>
+    </div>
   </body>
 </html>

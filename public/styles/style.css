@@ -1,7 +1,16 @@
+/*전체*/
+.common-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
 /* 메인 */
 .banner-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 20px auto;
   overflow: hidden;
   position: relative;
