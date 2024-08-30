@@ -1,10 +1,28 @@
 <% layout('layout') %>
-<% title = `mypage`; %>
+<% title = `My Page`; %>
 <% headScripts = `
   <script>
-
+    // 추가 스크립트가 필요하다면 여기에 추가하세요.
   </script>
 ` %>
 
-
-<h1>My Page</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0">My Page</h2>
+        </div>
+        <div class="card-body">
+          <p class="mb-2"><strong>ID:</strong> <%= id %></p>
+          <p class="mb-2"><strong>Email:</strong> <%= email %></p>
+          <p class="mb-2"><strong>Gender:</strong> <%= gender %></p>
+        </div>
+        <div class="card-footer text-center">
+          <a href="#" class="btn btn-warning">Edit Profile</a>
+          <a href="#" class="btn btn-danger">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

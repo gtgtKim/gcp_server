@@ -50,8 +50,11 @@ app.use((req, res, next) => {
 // Middleware to check if user is logged in
 app.use((req, res, next) => {
   res.locals.isLoggedIn = req.session.isLoggedIn || false;
-  console.log(req.session);
-  console.log(res.locals);
+  if (res.locals.isLoggedIn) {
+    res.locals.id = req.session.user.id || false;
+    res.locals.email = req.session.user.email || false;
+    res.locals.gender = req.session.user.gender || false;
+  }
   next();
 });
 

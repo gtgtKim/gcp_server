@@ -1,15 +1,20 @@
 <% layout('layout') %>
 <% title = `product-list`; %>
-<h1>Here is the Product List</h1>
-<div class="product-list">
-  <% for (let i = 1; i <= 10; i++) { %>
-  <div class="product-item">
-    <a href="/product-detail/<%= i %>" style="display: inline-block">
-      <img src="https://cdn.gyutae.xyz/cdn-image/image<%= i %>.png" alt="Product Image" width="200" class="image" />
-      <div>상품이름 <%= i %></div>
-    </a>
-    <p></p>
-  </div>
 
-  <% } %>
+<h1 class="text-center my-4">Here is the Product List</h1>
+<div class="container">
+  <div class="row">
+    <% for (let i = 1; i <= 10; i++) { %>
+    <div class="col-md-4 col-sm-6 mb-4">
+      <div class="card">
+        <a href="/product-detail/<%= i %>" class="text-decoration-none text-dark">
+          <img src="https://cdn.gyutae.xyz/cdn-image/image<%= i %>.png" alt="Product Image" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title">상품이름 <%= i %></h5>
+          </div>
+        </a>
+      </div>
+    </div>
+    <% } %>
+  </div>
 </div>
